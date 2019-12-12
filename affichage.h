@@ -18,6 +18,7 @@
 
 void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]);
 void afficheAide(EtatCase tablier[][TAILLE_TABLIER]);
+void afficheFinPartie(int billeRestante, bool centre);
 
 
 #endif /* AFFICHAGE_H */
