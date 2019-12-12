@@ -14,12 +14,10 @@
 #ifndef AFFICHAGE_H
 #define AFFICHAGE_H
 
-const unsigned TAILLE_TABLIER = 7;
-
-enum class EtatCase{VIDE, BILLE, LIBRE};
-
+#include "reglesDuJeu.h"
 
 void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]);
+void afficheAide(EtatCase tablier[][TAILLE_TABLIER]);
 
 
 #endif /* AFFICHAGE_H */

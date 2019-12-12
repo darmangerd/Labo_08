@@ -33,6 +33,7 @@ int main() {
   
   
   afficheTablier(tablier);
+  afficheAide(tablier);
   
   
   return EXIT_SUCCESS;

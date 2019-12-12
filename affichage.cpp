@@ -2,12 +2,12 @@
 #include "affichage.h"
 #include <iostream>
 #include <iomanip>
-#include <string>
+
 
 using namespace std;
 
 const string CASE_LIBRE = "..";
-const int LARGEUR_COLONNE = 4;
+const int LARGEUR_COLONNE = 3;
         
 void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
   
@@ -28,5 +28,9 @@ void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
     }
     cout << endl;
   }
-  
+}
+
+void afficheAide(EtatCase tablier[][TAILLE_TABLIER]) {
+  vector<string> move = allPossibleMoves(tablier);
+  for_each(move.cbegin(), move.cend(), [](string str) { cout << str << endl; });
 }
