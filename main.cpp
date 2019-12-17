@@ -1,11 +1,17 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
+ Laboratoire : 08
  Fichier     : main.cpp
- Auteur(s)   : Melvin Merk
- Date        : <jj.mm.aaaa>
+ Auteur(s)   : Melvin Merk, David Darmanger, Rébecca Tevaearai
+ Date        : 17.12.2019
 
- But         : Bla
+ But         :  Utilisation de tableaux (type C) bi-dimensionnels ou vecteurs
+                Utilisation de type enuméré
+                Conception et mise en oeuvre de fonctions
+                Approfondissement de la notion de tests et décision
+                Manipulation de chaines de caractères
+                Mise en oeuvre de la compilation séparée en plusieurs fichiers.
+
 
  Remarque(s) : Ne fonctionne que avec un tablier de taille strictement inférieur à 10
 
@@ -13,19 +19,18 @@
  -----------------------------------------------------------------------------------
  */
 
-
 #include <cstdlib>
 #include <iostream>
 #include "affichage.h"
 
 using namespace std;
 
-const string AIDE = "h";
-const string QUIT = "q";
+/* Constantes */
+const string CMD_AIDE = "h";
+const string CMD_QUIT = "q";
 
-
+/* Fonction principale */
 int main() {
-
 
     EtatCase tablier[TAILLE_TABLIER][TAILLE_TABLIER] = {
             {EtatCase::VIDE,  EtatCase::VIDE,  EtatCase::BILLE, EtatCase::BILLE, EtatCase::BILLE, EtatCase::VIDE,  EtatCase::VIDE},
@@ -39,23 +44,25 @@ int main() {
 
     int billeRestante = 0;
     bool centre = false;
-    string input = "";
+    string input;
+
+    // Affichage initial du tablier
     afficheTablier(tablier);
 
     do {
 
         cin >> input;
 
-        if(input == AIDE) {
+        if(input == CMD_AIDE) {
             afficheAide(tablier);
-            continue;
-        } else if(input == QUIT) {
+            continue;   // On ne raffiche pas le tablier après l'aide
+        } else if(input == CMD_QUIT) {
             // Calcul des billes restantes
             checkFinished(tablier, billeRestante, centre);
             break;
         } else if (!moveBille(tablier, input)) {
             cout << "Mouvement invalide" << endl;
-            continue;
+            continue;   // On ne raffiche pas le tablier après une entrée invalide
         }
 
         afficheTablier(tablier);
