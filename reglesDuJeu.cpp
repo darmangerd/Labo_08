@@ -27,14 +27,14 @@ const char DIRECTION_GAUCHE = 'l';
 // Position du caractère indiquant le déplacement. p.ex: 32u --> u ou 45d --> d
 const int POSITION_DEPLACEMENT_STRING = 2;
 
-static bool isValidMove(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
+bool isValidMove(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
     vector<string> moves = allPossibleMoves(tablier);
 
     // test si le déplacement est égal à un des déplacement possible
     return any_of(moves.cbegin(), moves.cend(), [&userinput](const string &str) { return userinput == str; });
 }
 
-static bool isValidIndex(int index) {
+bool isValidIndex(int index) {
     return index >= 0 && index < TAILLE_TABLIER;
 }
 

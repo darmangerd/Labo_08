@@ -6,6 +6,7 @@
 using namespace std;
 
 const string CASE_LIBRE = "..";
+const string CASE_VIDE = "  ";
 const int LARGEUR_COLONNE = 3;
         
 void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
@@ -14,10 +15,10 @@ void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
     for(unsigned j = 0; j < TAILLE_TABLIER; j++) {
       switch(tablier[i][j]) {
         case EtatCase::VIDE:
-          cout << setw(LARGEUR_COLONNE) << " ";
+          cout << setw(LARGEUR_COLONNE) << CASE_VIDE;
           break;
         case EtatCase::BILLE:
-          cout << setw(LARGEUR_COLONNE-1) << (i + 1) << (j + 1);
+          cout << setw(LARGEUR_COLONNE - 1) << (i + 1) << (j + 1);
           break;
           
         case EtatCase::LIBRE:
@@ -32,7 +33,7 @@ void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
 void afficheAide(EtatCase tablier[][TAILLE_TABLIER]) {
   vector<string> move = allPossibleMoves(tablier);
   cout << "Deplacements possibles: ";
-  for_each(move.cbegin(), move.cend(), [](string str) { cout << str << " "; });
+  for_each(move.cbegin(), move.cend(), [](const string &str) { cout << str << " "; });
   cout << endl;
 }
 
