@@ -2,3 +2,5 @@
 .idea/
 
 cmake-build-debug/CMakeFiles/clion-log.txt
+
+.DS_Store

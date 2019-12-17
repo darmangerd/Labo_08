@@ -1,17 +1,24 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : reglesDuJeu.cpp
- Auteur(s)   : Melvin Merk, David Darmanger
- Date        : <jj.mm.aaaa>
+ Laboratoire : 08
+ Fichier     : main.cpp
+ Auteur(s)   : Melvin Merk, David Darmanger, Rébecca Tevaearai
+ Date        : 17.12.2019
 
- But         : Bla
+ But         :  Utilisation de tableaux (type C) bi-dimensionnels ou vecteurs
+                Utilisation de type enuméré
+                Conception et mise en oeuvre de fonctions
+                Approfondissement de la notion de tests et décision
+                Manipulation de chaines de caractères
+                Mise en oeuvre de la compilation séparée en plusieurs fichiers.
 
- Remarque(s) : Bla
+
+ Remarque(s) : Ne fonctionne que avec un tablier de taille strictement inférieur à 10
 
  Compilateur : MinGW-g++ 6.3.0
  -----------------------------------------------------------------------------------
  */
+
 #include "reglesDuJeu.h"
 
 using namespace std;
