@@ -2,7 +2,7 @@
  -----------------------------------------------------------------------------------
  Laboratoire : <nn>
  Fichier     : reglesDuJeu.cpp
- Auteur(s)   : Melvin Merk
+ Auteur(s)   : Melvin Merk, David Darmanger
  Date        : <jj.mm.aaaa>
 
  But         : Bla
@@ -16,6 +16,11 @@
 
 using namespace std;
 
+/**
+\brief Conversion d'un char en int
+\param[in] c le caractère à convertir en int
+\return le caractère convertit en int
+*/
 int char2int(char c) {
     return c - '0';
 }
@@ -24,9 +29,16 @@ const char DIRECTION_BAS = 'd';
 const char DIRECTION_HAUT = 'u';
 const char DIRECTION_DROITE = 'r';
 const char DIRECTION_GAUCHE = 'l';
+
 // Position du caractère indiquant le déplacement. p.ex: 32u --> u ou 45d --> d
 const int POSITION_DEPLACEMENT_STRING = 2;
 
+/**
+\brief Permet de vérifier si le déplacement choisi par l'utilisateur est possible
+\param[in] tablier tableau contenant les différents états des cases
+\param[in] userinput string qui contient le déplacement choisi par l'utilisateur
+\return retourne vrai si le déplacement est possible, false s'il ne l'est pas
+*/
 bool isValidMove(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
     vector<string> moves = allPossibleMoves(tablier);
 
@@ -34,6 +46,11 @@ bool isValidMove(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
     return any_of(moves.cbegin(), moves.cend(), [&userinput](const string &str) { return userinput == str; });
 }
 
+/**
+\brief Permet de vérifier si l'index est valide
+\param[in] index entier qui contient l'index
+\return retourne vrai si l'index se trouve dans les intervalles valides, false s'il ne s'y trouve pas
+*/
 bool isValidIndex(int index) {
     return index >= 0 && index < TAILLE_TABLIER;
 }
@@ -46,6 +63,7 @@ bool moveBille(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
     ligne = char2int(userinput[0]) - 1;
     colonne = char2int(userinput[1]) - 1;
 
+    //Différents déplacement de la boule
     switch (userinput[POSITION_DEPLACEMENT_STRING]) {
         case DIRECTION_BAS:
             tablier[ligne + 1][colonne] = EtatCase::LIBRE;
@@ -72,11 +90,19 @@ bool moveBille(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
     return true;
 }
 
+/**
+\brief Permet de voir si un mouvement est possible
+\param[in] tablier tableau contenant les différents états des cases
+\param[in] ligne entier qui représente les différentes lignes
+\param[in] colonne entier qui représente les différentes colonnes
+\return retourne les mouvements possibles
+*/
 vector<string> possibleMoves(EtatCase tablier[][TAILLE_TABLIER], int ligne, int colonne) {
 
 
     vector<string> moves;
-    moves.reserve(4); // Quatre position par mouvement
+    // Quatre position par mouvement
+    moves.reserve(4);
 
     // Test mouvement bas
     if (isValidIndex(ligne + 1) && isValidIndex(ligne + 2)) {
@@ -113,26 +139,30 @@ vector<string> possibleMoves(EtatCase tablier[][TAILLE_TABLIER], int ligne, int 
     return moves;
 }
 
-
 vector<string> allPossibleMoves(EtatCase tablier[][TAILLE_TABLIER]) {
 
     vector<string> moves;
-    moves.reserve(4 * TAILLE_TABLIER * TAILLE_TABLIER); // Quatre position par index * le nombre d'index
+    // Quatre position par index * le nombre d'index
+    moves.reserve(4 * TAILLE_TABLIER * TAILLE_TABLIER);
 
     for (int i = 0; i < TAILLE_TABLIER; i++) {
         for (int j = 0; j < TAILLE_TABLIER; j++) {
             switch (tablier[i][j]) {
+                //Si la case est vide on passe à la suivante
                 case EtatCase::VIDE:
                     break;
+                //Si la case contient une bille on regarde les mouvements possible
                 case EtatCase::BILLE: {
+                    //Contient les différents mouvements possible à l'index [i][j]
                     vector<string> movesAtIndex(possibleMoves(tablier, i, j));
+                    //S'il n'y a pas de mouvements possible on passe à la case suivante
                     if (movesAtIndex.empty())
                         break;
 
                     copy(movesAtIndex.begin(), movesAtIndex.end(), back_inserter(moves));
                     break;
                 }
-
+                //Si la case est libre on passe à la suivante
                 case EtatCase::LIBRE:
                     break;
             }
@@ -146,6 +176,7 @@ bool checkFinished(EtatCase tablier[][TAILLE_TABLIER], int &billeRestante, bool 
     billeRestante = 0;
     centre = false;
 
+    //Comptqge de bille restante
     for(int i = 0; i < TAILLE_TABLIER; i++) {
         for(int j = 0; j < TAILLE_TABLIER; j++) {
             if(tablier[i][j] == EtatCase::BILLE) {
