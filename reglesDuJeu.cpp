@@ -54,9 +54,9 @@ bool isValidMove(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
 }
 
 /**
-@brief              Permet de vérifier si l'index est valide
-@param[in] index    entier qui contient l'index
-@return             vrai si l'index se trouve dans les intervalles valides, false s'il ne s'y trouve pas
+@brief                  Permet de vérifier si l'index est valide
+@param[in] index        entier qui contient l'index
+@return                 vrai si l'index se trouve dans les intervalles valides, false s'il ne s'y trouve pas
 */
 bool isValidIndex(int index) {
     return index >= 0 && index < TAILLE_TABLIER;
@@ -112,13 +112,15 @@ vector<string> possibleMoves(EtatCase tablier[][TAILLE_TABLIER], int ligne, int 
 
 bool moveBille(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
     int ligne, colonne;
+
+    // Contrôle que le déplacement soit possible
     if (!isValidMove(tablier, userinput))
         return false;
 
     ligne = char2int(userinput[0]) - 1;
     colonne = char2int(userinput[1]) - 1;
 
-    //Différents déplacement de la boule
+    // Différents déplacement de la boule
     switch (userinput[POSITION_DEPLACEMENT_STRING]) {
         case DIRECTION_BAS:
             tablier[ligne + 1][colonne] = EtatCase::LIBRE;
@@ -140,6 +142,7 @@ bool moveBille(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
             return false;
     }
 
+    // On "retire" la boule qui s'est fait sautée :)
     tablier[ligne][colonne] = EtatCase::LIBRE;
 
     return true;
@@ -148,7 +151,7 @@ bool moveBille(EtatCase tablier[][TAILLE_TABLIER], const string &userinput) {
 vector<string> allPossibleMoves(EtatCase tablier[][TAILLE_TABLIER]) {
 
     vector<string> moves;
-    // Quatre position par index * le nombre d'index
+    // Maximum quatre position par index * le nombre d'index (Selon les règles du jeu cette situation est théoriquement impossible)
     moves.reserve(4 * TAILLE_TABLIER * TAILLE_TABLIER);
 
     for (int i = 0; i < TAILLE_TABLIER; i++) {
@@ -165,6 +168,7 @@ vector<string> allPossibleMoves(EtatCase tablier[][TAILLE_TABLIER]) {
                     if (movesAtIndex.empty())
                         break;
 
+                    // On ajoute les mouvements de cet index aux autres mouvements possible
                     copy(movesAtIndex.begin(), movesAtIndex.end(), back_inserter(moves));
                     break;
                 }
@@ -196,7 +200,7 @@ bool checkFinished(EtatCase tablier[][TAILLE_TABLIER], int &billeRestante, bool 
         centre = tablier[CENTRE_TABLIER][CENTRE_TABLIER] == EtatCase::BILLE;
     }
 
-    // Puis on indique si il n'y as plus de mouvement
+    // Puis on indique si il n'y as plus de mouvement --> partie terminée
     return allPossibleMoves(tablier).empty();
 }
 

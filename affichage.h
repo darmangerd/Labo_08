@@ -24,29 +24,27 @@
 #include "reglesDuJeu.h"
 
 /**
- * @brief       Fonction qui parcourt le tableau "tablier" et affiche
- *              chaque case selon son état: vide, avec une bille ou libre.
+ * @brief                           Fonction qui parcourt le tableau "tablier" et affiche
+ *                                  chaque case selon son état: vide, avec une bille ou libre.
  * 
  * 
- * @param       Le tableau à deux dimensions "tablier".
+ * @param[in] tablier               tableau contenant les différents états des cases, le tableau n'est pas modifié
  */  
 void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]);
 
 /**
- * @brief       Fonction qui affiche les déplacements possibles.
+ * @brief                           Fonction qui affiche les déplacements possibles.
  * 
  * 
- * @param       Le tableau à deux dimensions "tablier". 
+ * @param[in] tablier               tableau contenant les différents états des cases, le tableau n'est pas modifié
  */   
 void afficheAide(EtatCase tablier[][TAILLE_TABLIER]);
 
 /**
- * @brief       Fonction qui affiche un message de fin différent selon le résultat final.
- * 
- * 
- * @param       Le nombre de billes restantes et un boolean "centre" qui, dans le cas gagnant
- *              (une seule bille restante), indique si la dernière bille est au centre du tablier.
- *  
+ * @brief                           Fonction qui affiche un message de fin différent selon le résultat final.
+ *
+ * @param[in] billeRestante         Le nombre de billes restantes
+ * @param[in] centre                indique si la dernière bille est au centre du tablier
  */ 
 void afficheFinPartie(int billeRestante, bool centre);
 

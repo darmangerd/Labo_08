@@ -26,22 +26,16 @@ using namespace std;
 
 /* Constantes */
 const string CASE_LIBRE = "..";
+const string CASE_VIDE  = "  ";
 const int LARGEUR_COLONNE = 3;
 
-/**
- * @brief                   Fonction qui parcourt le tableau "tablier" et affiche
- *                          chaque case selon son état: vide, avec une bille ou libre.
- * 
- * 
- * @param[in] tablier       Le tableau à deux dimensions "tablier".
- */        
 void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
   
   for(unsigned i = 0; i < TAILLE_TABLIER; i++) {
     for(unsigned j = 0; j < TAILLE_TABLIER; j++) {
       switch(tablier[i][j]) {
         case EtatCase::VIDE:
-          cout << setw(LARGEUR_COLONNE) << " ";
+          cout << setw(LARGEUR_COLONNE) << CASE_VIDE;
           break;
         case EtatCase::BILLE:
           cout << setw(LARGEUR_COLONNE-1) << (i + 1) << (j + 1);
@@ -56,12 +50,6 @@ void afficheTablier(EtatCase tablier[][TAILLE_TABLIER]) {
   }
 }
 
-/**
- * @brief                  Fonction qui affiche les déplacements possibles.
- * 
- * 
- * @param[in] tablier      Le tableau à deux dimensions "tablier".
- */   
 void afficheAide(EtatCase tablier[][TAILLE_TABLIER]) {
   vector<string> move = allPossibleMoves(tablier);
   cout << "Deplacements possibles: ";
@@ -70,14 +58,6 @@ void afficheAide(EtatCase tablier[][TAILLE_TABLIER]) {
   cout << endl;
 }
 
-/**
- * @brief       Fonction qui affiche un message de fin différent selon le résultat final.
- * 
- * 
- * @param[in]       Le nombre de billes restantes et un boolean "centre" qui, dans le cas gagnant
- *              (une seule bille restante), indique si la dernière bille est au centre du tablier.
- *  
- */   
 void afficheFinPartie(int billeRestante, bool centre) {
     if(centre) {
         cout << "Parfait, il ne reste qu'une bille au centre" << endl;
